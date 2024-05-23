@@ -56,6 +56,26 @@ app.post("/login", (req, res)=>{
 )
 
 
+app.post("/cadastrar", (req, res)=>{
+    //req.body -> pega os dados
+    const newUsername = req.body.novoUsuario;
+    const newPassword =  req.body.novaSenha;
+
+    console.log(newUsername);
+    console.log(newPassword);
+    db.query ('INSERT INTO  usuario (usuario, senha) VALUES (?, ?)',[newUsername, newPassword] , (error, results) =>{    
+        if (error) {
+         console.log (error)   
+        }
+        else { 
+            console.log (results)
+            res.sendFile(__dirname + '/sucesso.html')
+        }
+        })
+});
+    
+
+
 app.get("/cadastro", (req, res) =>{
     res.sendFile(__dirname + '/cadastro.html')
 })
