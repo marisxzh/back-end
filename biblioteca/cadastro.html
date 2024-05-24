@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .login-container {
+      margin-top: 100px;
+    }
+    .botao-cadastrar {
+      background-color: transparent;
+      border: none; 
+      color: #007bff;
+      cursor: pointer; 
+      outline: none; 
+    }
+    .confirm-group{
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+
+<div class="container">
+  <div class="row justify-content-center login-container">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title text-center">Cadastro</h5>
+          <form action="/cadastrar" method="POST" id="cadastroform">
+            <div class="form-group">
+              <label for="Novousuario">Nome:</label>
+              <input type="text" class="form-control" id="Novousuario" name="Novousuario" placeholder="Nome do usuário" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="e-mail" class="form-control" id="email" name="email" placeholder="email do usuário" required>
+              </div>
+              
+              <div>
+                <label for="endereco">Endereço:</label>
+            </div>
+                <div class="form-group"></div>
+                <label for="rua">Rua:</label>
+                <input type="text" class="form-control" id="rua" name="rua" placeholder="Insira a rua" required>
+              </div>
+
+              <div class="form-group"></div>
+                <label for="numero">Numero:</label>
+                <input type="number" class="form-control" id="numero" name="numero" placeholder="numero da casa" required>
+              </div>
+
+              <div class="form-group"></div>
+                <label for="bairro">Bairro:</label>
+                <input type="text" class="form-control" id="bairro" name="bairro" placeholder="Insira o bairro" required>
+              </div>
+
+              <div class="form-group"></div>
+                <label for="cidade">Cidade:</label>
+                <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Insira a cidade" required>
+              </div>
+
+              <div class="form-group"></div>
+                <label for="cep">CEP:</label>
+                <input type="text" class="form-control" id="cep" name="cep" placeholder="Insira o CEP" required>
+              </div>
+            <div class="form-group">
+              <label for="Novasenha">Senha:</label>
+              <input type="password" class="form-control" id="Novasenha" name="Novasenha" placeholder="Senha" required>
+            </div>
+            <div class="form-group" id="confirm-group">
+              <label for="Confirmpassword">Confirme sua senha:</label>
+              <input type="password" class="form-control" id="Confirmpassword" name="Confirmpassword" placeholder="Confirme a senha" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Cadastre-se</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script> 
+
+    document.getElementById("cadastroform").addEventListener("submit", function(event){
+      const password = document.getElementById("Novasenha").value;
+      const confirm = document.getElementById("Confirmpassword").value;
+      const tentativa =  document.getElementById("msg");
+    
+      if(!tentativa){
+        if(password !== confirm){
+          let span = document.createElement("span");
+          span.classList.add('alert');
+          span.textContent = "As senhas não coincidem";
+          span.setAttribute("id", "msg")
+          document.getElementById("confirm-group").appendChild(span);
+          event.preventDefault();
+        }
+      }
+        
+    }) 
+    </script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
