@@ -30,7 +30,7 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title text-center">Cadastro</h5>
-          <form action="/cadastrar" method="post">
+          <form action="/cadastrar" method="post" id="cadastroForm">
             <div class="form-group">
               <label for="novoUsuario">Novo usuario</label>
               <input type="text" class="form-control" id="novoUsuario" name="novoUsuario" placeholder="Nome do usuário" required>
@@ -38,6 +38,10 @@
             <div class="form-group">
               <label for="novaSenha">Senha</label>
               <input type="password" class="form-control" id="novaSenha" name="novaSenha" placeholder="Senha" required>
+            </div>
+            <div class="form-group" id="confirm-group">
+              <label for="confirmarNovaSenha">Confirme a senha</label>
+              <input type="password" class="form-control" id="confirmarNovaSenha" name="confirmarNovaSenha" placeholder="Confirme a senha" required>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
           </form>
@@ -49,6 +53,27 @@
     </div>
   </div>
 </div>
+
+<script> 
+
+  document.getElementById("cadastroForm").addEventListener("submit", function(event){
+    const password = document.getElementById("novaSenha").value;
+    const confirm = document.getElementById("confirmarNovaSenha").value;
+    const tentativa =  document.getElementById("msg");
+  
+    if(!tentativa){
+      if(password !== confirm){
+        let span = document.createElement("span");
+        span.classList.add('alert');
+        span.textContent = "As senhas não coincidem";
+        span.setAttribute("id", "msg");
+        document.getElementById("confirm-group").appendChild(span);
+        event.preventDefault();
+      }
+    }
+      
+  }) 
+  </script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

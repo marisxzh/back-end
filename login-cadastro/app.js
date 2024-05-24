@@ -60,18 +60,38 @@ app.post("/cadastrar", (req, res)=>{
     //req.body -> pega os dados
     const newUsername = req.body.novoUsuario;
     const newPassword =  req.body.novaSenha;
+    const confirmNewPassword = req.body.confirmarNovaSenha
+    let mensagem = 'as senhas não coincidem'
+    let usuarioIgual = 'esse usuario já existe :( crie outro!'
 
+    
     console.log(newUsername);
     console.log(newPassword);
-    db.query ('INSERT INTO  usuario (usuario, senha) VALUES (?, ?)',[newUsername, newPassword] , (error, results) =>{    
-        if (error) {
-         console.log (error)   
+    console.log(confirmNewPassword)
+
+    db.query ('SELECT usuario FROM usuario Where usuario = ?', [newUsername], (error, results) => {
+        if (results.length>0){
+            console.log ('Esse usuario já existe')
+            res.send(` //enviar uma resposta ao leitor (página)
+            <script>
+            alert('${usuarioIgual}'); //alerta com a mensagem
+            window.location.href = '/cadastro'; // Redirecionando de volta para a página de cadastro
+            </script>
+            `);
+        } else{
+            db.query ('INSERT INTO  usuario (usuario, senha) VALUES (?, ?)',[newUsername,   newPassword] , (error, results) =>{    
+                if (error) {
+                 console.log ("erro ao realizar o cadastro", error)   
+                }
+                else { 
+                 console.log (results)
+                 res.sendFile(__dirname + '/sucesso.html')
+                }
+                       
+    });
         }
-        else { 
-            console.log (results)
-            res.sendFile(__dirname + '/sucesso.html')
-        }
-        })
+
+    });
 });
     
 
